@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5" name="viewport" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <title>Valentine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Ubuntu", sans-serif;
+    }
+    #bodyblur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    #bodyblur img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+    }
+    #Content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .image {
+      margin-bottom: 20px;
+    }
+    blockquote {
+      font-size: 1.5rem;
+      color: #fff;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+    }
+    .button-container {
+      margin-top: 20px;
+    }
+    .button-container button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      background-color: #FF0040;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button-container button:hover {
+      background-color: #d90036;
+    }
+  </style>
+</head>
+<body>
+  <div id="bodyblur">
+    <img src="1.jpg" alt="background image" />
+  </div>
+  <div id="Content">
+    <div class="image">
+      <img src="gif/2.gif" width="230px" height="230px" alt="heart gif" />
+    </div>
+    <div>
+      <blockquote>
+        <p id="text"></p>
+        <p id="text2"></p>
+        <p id="text3"></p>
+      </blockquote>
+    </div>
+    <div class="button-container">
+      <button id="mainButton">Lanjut</button>
+      <button id="otherPageButton" style="display: none;">Ke Halaman Lain</button>
+    </div>
+  </div>
+
+  <script>
+    let i = 0, u = 0, o = 0;
+    let text = "", text2 = "", text3 = "", emotnama = "", emotnama2 = "";
+    let step = 0;
+    let nama = "My Love";
+
+    function ketik() {
+      if (i < text.length) {
+        document.getElementById("text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(ketik, 100);
+      } else {
+        document.getElementById("text").innerHTML = text + emotnama;
+        ketikk();
+      }
+    }
+
+    function ketikk() {
+      if (u < text2.length) {
+        document.getElementById("text2").innerHTML += text2.charAt(u);
+        u++;
+        setTimeout(ketikk, 200);
+      } else {
+        ketikkk();
+      }
+    }
+
+    function ketikkk() {
+      if (o < text3.length) {
+        document.getElementById("text3").innerHTML += text3.charAt(o);
+        o++;
+        setTimeout(ketikkk, 300);
+      } else {
+        document.getElementById("text3").innerHTML = text3 + emotnama2;
+        document.getElementById("otherPageButton").style.display = "block";
+      }
+    }
+
+    async function handleNextStep() {
+      const swals = Swal.mixin({
+        allowOutsideClick: false,
+      });
+
+      if (step === 0) {
+        const { value: userName } = await swals.fire({
+          title: "Masukkan Nama Kamu",
+          input: "text",
+          inputPlaceholder: "Nama kamu",
+          allowOutsideClick: false,
+          showCancelButton: false,
+        });
+
+        if (!userName || userName.length > 10) {
+          await swals.fire(
+            "Ups!",
+            "Nama tidak boleh kosong atau lebih dari 10 karakter!"
+          );
+          return;
+        }
+        nama = userName;
+        text = `Dear, ${nama}.    `;
+        emotnama = "&#10084;";
+        step++;
+      } else if (step === 1) {
+        text2 =
+          "Saat semua orang memiliki satu hari kasih sayang untuk ia rayakan, aku punya setiap hari untuk mencintaimu meski tak ku ucapkan. ";
+        text3 = `Semoga malam ini seindah senyumanmu, ${nama}.`;
+        ketik();
+        document.getElementById("mainButton").style.display = "none";
+        step++;
+      }
+    }
+
+    document.getElementById("mainButton").addEventListener("click", handleNextStep);
+    document.getElementById("otherPageButton").addEventListener("click", () => {
+      window.location.href = "halaman_lain.html"; // Ganti dengan URL halaman lain
+    });
+  </script>
+</body>
+</html>

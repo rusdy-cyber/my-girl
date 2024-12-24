@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foto Slide</title>
+  <style>
+    /* Gaya umum */
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #333;
+      color: #fff;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+    }
+
+    .content-box {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .content-box h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .content-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .content-box p {
+      margin: 10px 0;
+      color: #555;
+    }
+
+    .thumbnails {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .thumbnails img {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .thumbnails img.active {
+      border-color: #333;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #FF5733;
+      border: none;
+      color: white;
+      font-size: 16px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      background-color: #C0392B;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tombol untuk membuka galeri -->
+  <button class="btn" onclick="showOverlay()">Buka Galeri</button>
+
+  <!-- Overlay untuk galeri -->
+  <div id="overlay" class="overlay">
+    <div class="content-box">
+      <button class="close-btn" onclick="closeOverlay()">×</button>
+      <h2>Galeri Foto</h2>
+      <img id="main-image" src="foto1.jpg" alt="Foto Utama" />
+      <p id="text-above">Teks di atas foto</p>
+      <div class="thumbnails">
+        <img src="foto1.jpg" alt="Foto 1" onclick="changeImage('foto1.jpg', 'Teks di atas foto 1', 'Teks di bawah foto 1')" class="active" />
+        <img src="foto2.jpg" alt="Foto 2" onclick="changeImage('foto2.jpg', 'Teks di atas foto 2', 'Teks di bawah foto 2')" />
+        <img src="foto3.jpg" alt="Foto 3" onclick="changeImage('foto3.jpg', 'Teks di atas foto 3', 'Teks di bawah foto 3')" />
+        <img src="foto4.jpg" alt="Foto 4" onclick="changeImage('foto4.jpg', 'Teks di atas foto 4', 'Teks di bawah foto 4')" />
+        <img src="foto5.jpg" alt="Foto 5" onclick="changeImage('foto5.jpg', 'Teks di atas foto 5', 'Teks di bawah foto 5')" />
+      </div>
+      <p id="text-below">Teks di bawah foto</p>
+    </div>
+  </div>
+
+  <script>
+    /* Fungsi untuk menampilkan overlay */
+    function showOverlay() {
+      document.getElementById('overlay').style.display = 'flex';
+    }
+
+    /* Fungsi untuk menutup overlay */
+    function closeOverlay() {
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    /* Fungsi untuk mengganti gambar utama dan teks */
+    function changeImage(imageSrc, textAbove, textBelow) {
+      document.getElementById('main-image').src = imageSrc;
+      document.getElementById('text-above').textContent = textAbove;
+      document.getElementById('text-below').textContent = textBelow;
+
+      // Update thumbnail aktif
+      const thumbnails = document.querySelectorAll('.thumbnails img');
+      thumbnails.forEach((img) => img.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

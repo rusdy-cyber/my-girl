@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foto Slide</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Gaya tambahan untuk galeri */
+    .thumbnail-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .thumbnail-container img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .thumbnail-container img.active {
+      border-color: #007bff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1050;
+      display: none; /* Awalnya tidak tampil */
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay .modal-content {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 90%; /* Batas ukuran untuk mobile */
+      padding: 15px;
+    }
+
+    .text-above,
+    .text-below {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container text-center mt-5">
+  <!-- Tombol untuk membuka galeri -->
+  <button class="btn btn-primary" onclick="showOverlay()">Buka Galeri</button>
+</div>
+
+<!-- Galeri Foto -->
+<div id="photoOverlay" class="overlay d-flex">
+  <div class="modal-content p-3">
+    <!-- Tombol close -->
+    <button class="btn-close align-self-end" aria-label="Close" onclick="closeOverlay()"></button>
+
+    <!-- Teks di atas -->
+    <p class="text-above fw-bold">Teks di atas foto</p>
+
+    <!-- Gambar utama -->
+    <div class="text-center">
+      <img id="mainImage" src="foto1.jpg" alt="Foto Utama" class="img-fluid rounded mb-3">
+    </div>
+
+    <!-- Teks di bawah -->
+    <p class="text-below">Teks di bawah foto</p>
+
+    <!-- Thumbnail -->
+    <div class="thumbnail-container">
+      <img src="foto1.jpg" alt="Foto 1" class="active" onclick="changeImage('foto1.jpg', 'Teks di atas foto 1', 'Teks di bawah foto 1')">
+      <img src="foto2.jpg" alt="Foto 2" onclick="changeImage('foto2.jpg', 'Teks di atas foto 2', 'Teks di bawah foto 2')">
+      <img src="foto3.jpg" alt="Foto 3" onclick="changeImage('foto3.jpg', 'Teks di atas foto 3', 'Teks di bawah foto 3')">
+      <img src="foto4.jpg" alt="Foto 4" onclick="changeImage('foto4.jpg', 'Teks di atas foto 4', 'Teks di bawah foto 4')">
+      <img src="foto5.jpg" alt="Foto 5" onclick="changeImage('foto5.jpg', 'Teks di atas foto 5', 'Teks di bawah foto 5')">
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Fungsi untuk menampilkan overlay
+  function showOverlay() {
+    const overlay = document.getElementById('photoOverlay');
+    overlay.style.display = 'flex'; // Menampilkan overlay
+  }
+
+  // Fungsi untuk menutup overlay
+  function closeOverlay() {
+    const overlay = document.getElementById('photoOverlay');
+    overlay.style.display = 'none'; // Menyembunyikan overlay
+  }
+
+  // Fungsi untuk mengganti gambar utama dan teks
+  function changeImage(imageSrc, textAbove, textBelow) {
+    document.getElementById('mainImage').src = imageSrc; // Ganti gambar utama
+    document.querySelector('.text-above').textContent = textAbove; // Ganti teks atas
+    document.querySelector('.text-below').textContent = textBelow; // Ganti teks bawah
+
+    // Perbarui gaya aktif pada thumbnail
+    const thumbnails = document.querySelectorAll('.thumbnail-container img');
+    thumbnails.forEach(img => img.classList.remove('active'));
+    event.target.classList.add('active'); // Tambahkan gaya aktif ke gambar yang diklik
+  }
+</script>
+
+</body>
+</html>
