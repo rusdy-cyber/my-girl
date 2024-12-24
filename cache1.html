@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Mengatur karakter encoding untuk file HTML -->
+    <meta
+      content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5"
+      name="viewport"
+    />
+    <!-- Menyesuaikan skala halaman pada perangkat mobile -->
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <!-- Memastikan kompatibilitas dengan Internet Explorer -->
+    <title>Valentine</title>
+    <!-- Menentukan judul halaman -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Menghubungkan ke Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Mengimpor font "Ubuntu" -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <!-- Menghubungkan pustaka SweetAlert2 untuk pop-up -->
+    <style>
+      /* Gaya CSS untuk halaman */
+      body {
+        margin: 0;
+        font-family: "Ubuntu", sans-serif;
+        /* Menggunakan font Ubuntu */
+      }
+      #bodyblur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+        /* Layer background di bawah elemen lainnya */
+      }
+      #bodyblur img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        /* Mengatur gambar background agar memenuhi layar */
+      }
+      #Content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        /* Mengatur tata letak konten di tengah layar */
+      }
+      .image {
+        margin-bottom: 20px;
+        /* Memberikan jarak antara elemen gambar dengan elemen lain */
+      }
+      blockquote {
+        font-size: 1.5rem;
+        color: #fff;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        /* Gaya teks dalam bentuk blok dengan latar belakang gelap */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Bagian untuk background -->
+    <div id="bodyblur">
+      <img src="1.jpg" alt="background image" />
+      <!-- Gambar background -->
+    </div>
+
+    <!-- Bagian konten utama -->
+    <div id="Content">
+      <div class="image">
+        <img src="gif/2.gif" width="230px" height="230px" alt="heart gif" />
+        <!-- Gambar gif animasi -->
+      </div>
+      <div>
+        <blockquote>
+          <p id="text"></p>
+          <!-- Teks pertama yang akan ditampilkan dengan efek ketik -->
+          <p id="text2"></p>
+          <!-- Teks kedua -->
+          <p id="text3"></p>
+          <!-- Teks ketiga -->
+        </blockquote>
+      </div>
+    </div>
+
+    <script>
+      /* Fungsi untuk menyembunyikan elemen dengan ID tertentu */
+      function nonFo() {
+        document.getElementById("idfoto").style.display = "none";
+      }
+
+      /* Fungsi untuk menampilkan elemen dengan ID tertentu */
+      function showFo() {
+        document.getElementById("idfoto").style.display = "block";
+      }
+
+      /* Fungsi untuk menyembunyikan elemen konten */
+      function nonDiv() {
+        document.getElementById("Content").style.display = "none";
+      }
+
+      /* Fungsi untuk menampilkan elemen konten dengan efek */
+      function showDiv() {
+        document.getElementById("Content").style.opacity = "1";
+        document.getElementById("Content").style.margin = "0";
+        document.getElementById("Content").style.animation = "kont 3s infinite";
+      }
+
+      /* Variabel untuk menyimpan teks dan indeks */
+      var i = 0,
+        u = 0,
+        o = 0;
+      var text = "",
+        text2 = "",
+        text3 = "",
+        emotnama = "",
+        emotnama2 = "";
+
+      /* Fungsi mengetik teks pertama */
+      function ketik() {
+        if (i < text.length) {
+          document.getElementById("text").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(ketik, 100); // Interval 100ms
+        }
+        if (i == text.length) {
+          document.getElementById("text").innerHTML = text + emotnama;
+          ketikk(); // Panggil fungsi ketik teks kedua
+        }
+      }
+
+      /* Fungsi mengetik teks kedua */
+      function ketikk() {
+        if (u < text2.length) {
+          document.getElementById("text2").innerHTML += text2.charAt(u);
+          u++;
+          setTimeout(ketikk, 200); // Interval 200ms
+        }
+        if (u == text2.length) {
+          ketikkk(); // Panggil fungsi ketik teks ketiga
+        }
+      }
+
+      /* Fungsi mengetik teks ketiga */
+      function ketikkk() {
+        if (o < text3.length) {
+          document.getElementById("text3").innerHTML += text3.charAt(o);
+          o++;
+          setTimeout(ketikkk, 300); // Interval 300ms
+        }
+        if (o == text3.length) {
+          document.getElementById("text3").innerHTML = text3 + emotnama2;
+        }
+      }
+    </script>
+
+    <script type="text/javascript">
+      /* Fungsi memutar audio */
+      function play() {
+        var audio = new Audio("mpe/zara.mp3");
+        audio.loop = true; // Mode loop
+        audio.play(); // Mulai audio
+      }
+
+      /* Mengatur konfigurasi default SweetAlert */
+      const swals = Swal.mixin({
+        allowOutsideClick: false,
+        cancelButtonColor: "#FF0040",
+      });
+      const swalsy = Swal.mixin({
+        confirmButtonText: "Iya",
+        allowOutsideClick: false,
+      });
+      const swalst = Swal.mixin({
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+      });
+
+      /* Fungsi untuk memulai tanya jawab */
+      async function mulaitanya() {
+        var { isConfirmed: tanyawal } = await swals.fire({
+          title: `Mau isi nama dulu atau langsung aja?`,
+          imageUrl: "gif/1.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          confirmButtonText: "Isi Nama",
+          cancelButtonText: "Langsung Aja",
+          allowOutsideClick: false,
+          showCancelButton: true,
+        });
+        if (tanyawal) {
+          mulai();
+          play(); // Mulai audio
+        } else {
+          nama = "My Love";
+          pilihwarna();
+          play(); // Mulai audio
+        }
+      }
+
+      /* Fungsi untuk meminta nama */
+      async function mulai() {
+        var { value: nama } = await swals.fire({
+          title: "Masukin nama kamu",
+          input: "text",
+          imageUrl: "gif/3.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          allowOutsideClick: false,
+          showCancelButton: false,
+        });
+
+        if (nama && nama.length < 11) {
+          window.nama = nama; // Simpan nama
+          pilihwarna();
+        } else {
+          await swals.fire(
+            "Ups!",
+            "Nama tidak boleh kosong atau lebih dari 10 karakter, ya!"
+          );
+          mulai(); // Panggil lagi jika tidak valid
+        }
+      }
+
+      /* Fungsi untuk memilih warna dan pesan */
+      async function pilihwarna() {
+        text = "Dear, " + nama + ".    ";
+        emotnama = "&#10084;"; // Emoji hati
+
+        var { isConfirmed: tanyadua } = await swals.fire({
+          title: nama + ` mau pilih warna apa nih?`,
+          imageUrl: "gif/5.gif",
+          imageWidth: 120,
+          imageHeight: 120,
+          confirmButtonText: "Ungu",
+          cancelButtonText: "Merah",
+          allowOutsideClick: false,
+          showCancelButton: true,
+        });
+
+        if (tanyadua) {
+          text2 =
+            "Saat semua orang memiliki satu hari kasih sayang untuk ia rayakan, aku punya setiap hari untuk mencintaimu meski tak ku ucapkan. ";
+          text3 = "Semoga malam ini seindah senyumanmu, " + nama + ".";
+        } else {
+          text2 =
+            "Terima kasih yah sudah ada untukku. Apapun yang terjadi aku tidak akan berubah dan aku akan tetap di sini.";
+          text3 = "Hari ini kamu pasti lelah, istirahatlah. Selamat malam, " + nama + "!";
+        }
+
+        /* Reset teks sebelum menampilkan ulang */
+        document.getElementById("text2").innerHTML = "";
+        document.getElementById("text3").innerHTML = "";
+
+        showDiv(); // Tampilkan konten
+        ketik(); // Panggil fungsi ketik
+      }
+
+      /* Mulai tanya jawab saat halaman dimuat */
+      mulaitanya();
+    </script>
+  </body>
+</html>
